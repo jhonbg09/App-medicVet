@@ -1,10 +1,11 @@
+import Header from "./components/Header"
 
 
 function App() {
   return (
-    <div>
-      <h1>El componente funciona</h1>
-    </div>
+    <>
+      <Header/>
+    </>
   )
 }
 
