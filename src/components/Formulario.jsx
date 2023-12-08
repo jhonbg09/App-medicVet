@@ -1,4 +1,19 @@
+import { useState, useEffect } from "react";
+
 const Formulario = () => {
+
+  const [nombreMascota, setNombreMascota] = useState('')
+  //Estoy usando este handle para capturar la informacion del input
+  const handleOnChance = (e) => setNombreMascota(e.target.value)
+  console.log(nombreMascota)
+
+  //Este hnadle hace la vallidacion del formulario
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Enviando formulario')
+  }
+
+
   return (
     <div className="md:w-1/2 lg:w-2/5" >
       <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
@@ -7,13 +22,13 @@ const Formulario = () => {
         <span className="text-indigo-600 font-bold">Administralos</span>
       </p>
 
-      <form className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
+      <form className="bg-white shadow-md rounded-lg py-10 px-5 mb-10" onSubmit={handleSubmit}>
         <div className="mb-5">
           <label
             className="block text-gray-700 uppercase font-bold"
             htmlFor="mascota"
           >
-            Nombre Mascota
+            Nombre Mascota {nombreMascota}
           </label>{" "}
           {/*el htmlfor es una buena buena practica para ayudr a seleccionar el input... este va relacionado con el id del input  */}
           <input
@@ -21,6 +36,9 @@ const Formulario = () => {
             id="mascota"
             type="text"
             placeholder="Nombre de la mascota"
+            value={nombreMascota}
+            onChange={handleOnChance}
+            
           />
         </div>
 
