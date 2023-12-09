@@ -3,19 +3,42 @@ import { useState, useEffect } from "react";
 const Formulario = () => {
 
   const [nombreMascota, setNombreMascota] = useState('')
+  const [nombrePropietario, setnombrePropietario] = useState('')
+  const [email, setEmail] = useState('')
+  const [fecha, setFecha] = useState('')
+  const [sintomas, setSintomas] = useState('')
+
   //Estoy usando este handle para capturar la informacion del input
-  const handleOnChance = (e) => setNombreMascota(e.target.value)
+  const handleNombreMascota= (e) => setNombreMascota(e.target.value)
   console.log(nombreMascota)
 
-  //Este hnadle hace la vallidacion del formulario
+  const handleNombrePropietario = (e)=> setnombrePropietario(e.target.value)
+  
+
+  const handleEmail = (e => {
+    setEmail(e.target.value)
+  })
+ 
+
+  const handleFecha = e => {
+    setFecha(e.target.value)
+  }
+  
+  const handleSintomas = e => {
+    setSintomas(e.target.value)
+  }
+  console.log(sintomas)
+
+  //Este handle hace la vallidacion del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Enviando formulario')
   }
 
 
+
   return (
-    <div className="md:w-1/2 lg:w-2/5" >
+    <div className="md:w-1/2 lg:w-2/5 mx-5" >
       <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
       <p className="text-xl mt-5 text-center mb-10">
         Añade Pacientes y{" "}
@@ -28,7 +51,7 @@ const Formulario = () => {
             className="block text-gray-700 uppercase font-bold"
             htmlFor="mascota"
           >
-            Nombre Mascota {nombreMascota}
+            Nombre Mascota 
           </label>{" "}
           {/*el htmlfor es una buena buena practica para ayudr a seleccionar el input... este va relacionado con el id del input  */}
           <input
@@ -37,7 +60,7 @@ const Formulario = () => {
             type="text"
             placeholder="Nombre de la mascota"
             value={nombreMascota}
-            onChange={handleOnChance}
+            onChange={handleNombreMascota}
             
           />
         </div>
@@ -55,6 +78,8 @@ const Formulario = () => {
             id="propietario"
             type="text"
             placeholder="Nombre Propietario"
+            value={nombrePropietario}
+            onChange={handleNombrePropietario}
           />
         </div>
 
@@ -71,6 +96,8 @@ const Formulario = () => {
             id="email"
             type="text"
             placeholder="correo@correo.com"
+            value={email}
+            onChange={handleEmail}
           />
         </div>
 
@@ -86,6 +113,8 @@ const Formulario = () => {
             className="border-2 w-full p-2 mt-2 placeholder-grey-400 rounded-md"
             id="alta"
             type="date"
+            value={fecha}
+            onChange={handleFecha}
           />
         </div>
 
@@ -101,6 +130,8 @@ const Formulario = () => {
             className="border-2 w-full p-2 mt-2 placeholder-grey-400 rounded-md"
             id="sintomas"
             placeholder="Describe los sintomas"
+            value={sintomas}
+            onChange={handleSintomas}
           />
         </div>
 
