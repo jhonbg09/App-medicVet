@@ -1,57 +1,72 @@
 import { useState, useEffect } from "react";
 
 const Formulario = () => {
+  const [nombreMascota, setNombreMascota] = useState("");
+  const [nombrePropietario, setnombrePropietario] = useState("");
+  const [email, setEmail] = useState("");
+  const [fecha, setFecha] = useState("");
+  const [sintomas, setSintomas] = useState("");
 
-  const [nombreMascota, setNombreMascota] = useState('')
-  const [nombrePropietario, setnombrePropietario] = useState('')
-  const [email, setEmail] = useState('')
-  const [fecha, setFecha] = useState('')
-  const [sintomas, setSintomas] = useState('')
+  const [error, setError] = useState(false);
 
   //Estoy usando este handle para capturar la informacion del input
-  const handleNombreMascota= (e) => setNombreMascota(e.target.value)
-  console.log(nombreMascota)
+  const handleNombreMascota = (e) => setNombreMascota(e.target.value);
+  console.log(nombreMascota);
 
-  const handleNombrePropietario = (e)=> setnombrePropietario(e.target.value)
-  
+  const handleNombrePropietario = (e) => setnombrePropietario(e.target.value);
 
-  const handleEmail = (e => {
-    setEmail(e.target.value)
-  })
- 
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
 
-  const handleFecha = e => {
-    setFecha(e.target.value)
-  }
-  
-  const handleSintomas = e => {
-    setSintomas(e.target.value)
-  }
-  console.log(sintomas)
+  const handleFecha = (e) => {
+    setFecha(e.target.value);
+  };
 
-  //Este handle hace la vallidacion del formulario
+  const handleSintomas = (e) => {
+    setSintomas(e.target.value);
+  };
+  console.log(sintomas);
+
+  //Este handle hace la validacion del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Enviando formulario')
-  }
+    // para validar todos los espacios del formulario voy colocar el value de cada uno en un arreglo
 
-
+    if (
+      [nombreMascota, nombrePropietario, email, fecha, sintomas].includes("")
+    ) {
+      console.log("Hay campos vacio");
+      setError(true);
+      return;
+    } 
+    setError(false);
+    console.log("Enviando formulario");
+  };
 
   return (
-    <div className="md:w-1/2 lg:w-2/5 mx-5" >
+    <div className="md:w-1/2 lg:w-2/5 mx-5">
       <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
       <p className="text-xl mt-5 text-center mb-10">
         Añade Pacientes y{" "}
         <span className="text-indigo-600 font-bold">Administralos</span>
       </p>
 
-      <form className="bg-white shadow-md rounded-lg py-10 px-5 mb-10" onSubmit={handleSubmit}>
-        <div className="mb-5">
+      <form
+        className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
+        onSubmit={handleSubmit}
+      >
+        <div>
+          {error && (
+            <div className="text-center p-3 transition-all bg-red-800 rounded-md mb-3 uppercase text-white font-bold ">
+              <p>todos los campos son obligatorios</p>
+            </div>
+          )}
           <label
             className="block text-gray-700 uppercase font-bold"
             htmlFor="mascota"
           >
-            Nombre Mascota 
+            Nombre Mascota
           </label>{" "}
           {/*el htmlfor es una buena buena practica para ayudr a seleccionar el input... este va relacionado con el id del input  */}
           <input
@@ -61,7 +76,6 @@ const Formulario = () => {
             placeholder="Nombre de la mascota"
             value={nombreMascota}
             onChange={handleNombreMascota}
-            
           />
         </div>
 
@@ -136,9 +150,9 @@ const Formulario = () => {
         </div>
 
         <input
-            type="submit"
-            className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-            value="Agregar Paciente"
+          type="submit"
+          className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
+          value="Agregar Paciente"
         />
       </form>
     </div>
