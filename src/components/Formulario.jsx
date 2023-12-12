@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 
-const Formulario = () => {
+const Formulario = ({ pacientes, setPacientes }) => {
   const [nombreMascota, setNombreMascota] = useState("");
   const [nombrePropietario, setnombrePropietario] = useState("");
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const Formulario = () => {
 
   //Estoy usando este handle para capturar la informacion del input
   const handleNombreMascota = (e) => setNombreMascota(e.target.value);
-  console.log(nombreMascota);
+  // console.log(nombreMascota);
 
   const handleNombrePropietario = (e) => setnombrePropietario(e.target.value);
 
@@ -31,17 +32,39 @@ const Formulario = () => {
   //Este handle hace la validacion del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    // para validar todos los espacios del formulario voy colocar el value de cada uno en un arreglo
+    // para validar todos los espacios del formulario voy colocar el value en el arreglo
 
     if (
       [nombreMascota, nombrePropietario, email, fecha, sintomas].includes("")
     ) {
-      console.log("Hay campos vacio");
+      // console.log("Hay campos vacio");
       setError(true);
       return;
     } 
     setError(false);
-    console.log("Enviando formulario");
+    // console.log("Enviando formulario");
+    // Construimos un objeto para pasarlo al use state que esta en el archivo app " const [pacientes, setPacientes] = useState([])"
+
+    const objetoPaciente = {
+      nombreMascota, 
+      nombrePropietario, 
+      email, 
+      fecha, 
+      sintomas
+    }
+
+    // console.log(objetoPaciente); aca deben pasar todos los pacientes 
+
+    setPacientes([...pacientes, objetoPaciente])
+
+    //Con esto reinicio el formulario
+
+    setNombreMascota('');
+    setnombrePropietario('');
+    setEmail('');
+    setFecha('');
+    setSintomas('');
+    
   };
 
   return (
