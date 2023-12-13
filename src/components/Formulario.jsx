@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
+import Error from "../components/Error";
 
 const Formulario = ({ pacientes, setPacientes }) => {
   const [nombreMascota, setNombreMascota] = useState("");
@@ -8,7 +9,7 @@ const Formulario = ({ pacientes, setPacientes }) => {
   const [fecha, setFecha] = useState("");
   const [sintomas, setSintomas] = useState("");
 
-  const [error, setError] = useState(false);
+  const [errors, setErrors] = useState(false);
 
   //Estoy usando este handle para capturar la informacion del input
   const handleNombreMascota = (e) => setNombreMascota(e.target.value);
@@ -27,7 +28,7 @@ const Formulario = ({ pacientes, setPacientes }) => {
   const handleSintomas = (e) => {
     setSintomas(e.target.value);
   };
-  console.log(sintomas);
+  // console.log(sintomas);
 
   //Este handle hace la validacion del formulario
   const handleSubmit = (e) => {
@@ -38,10 +39,10 @@ const Formulario = ({ pacientes, setPacientes }) => {
       [nombreMascota, nombrePropietario, email, fecha, sintomas].includes("")
     ) {
       // console.log("Hay campos vacio");
-      setError(true);
+      setErrors(true);
       return;
     } 
-    setError(false);
+    setErrors(false);
     // console.log("Enviando formulario");
     // Construimos un objeto para pasarlo al use state que esta en el archivo app " const [pacientes, setPacientes] = useState([])"
 
@@ -80,18 +81,14 @@ const Formulario = ({ pacientes, setPacientes }) => {
         onSubmit={handleSubmit}
       >
         <div>
-          {error && (
-            <div className="text-center p-3 transition-all bg-red-800 rounded-md mb-3 uppercase text-white font-bold ">
-              <p>todos los campos son obligatorios</p>
-            </div>
-          )}
+          {errors && <Error mensaje='todos los campos son obligatorios'/>}
           <label
             className="block text-gray-700 uppercase font-bold"
             htmlFor="mascota"
           >
             Nombre Mascota
           </label>{" "}
-          {/*el htmlfor es una buena buena practica para ayudr a seleccionar el input... este va relacionado con el id del input  */}
+          {/*el htmlfor es una buena buena practica para ayudar a seleccionar el input... este va relacionado con el id del input  */}
           <input
             className="border-2 w-full p-2 mt-2 placeholder-grey-400 rounded-md"
             id="mascota"
