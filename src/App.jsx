@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Header from "./components/Header";
 import Formulario from "./components/Formulario";
@@ -15,7 +16,9 @@ function App() {
           pacientes={pacientes}
           setPacientes={setPacientes}
         />
-        <ListadoPacientes />
+        <ListadoPacientes 
+          paciente={pacientes}
+        />
       </div>
     </div>
   );

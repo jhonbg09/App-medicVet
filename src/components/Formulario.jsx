@@ -30,6 +30,14 @@ const Formulario = ({ pacientes, setPacientes }) => {
   };
   // console.log(sintomas);
 
+   //Con esta funcion voy a crear el key para eliminar el error de la consola
+   const generarId = () => {
+    const random = Math.random().toString(36);
+    const fecha = Date.now().toString(36);
+    return fecha + random;
+  };
+  
+
   //Este handle hace la validacion del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,31 +49,31 @@ const Formulario = ({ pacientes, setPacientes }) => {
       // console.log("Hay campos vacio");
       setErrors(true);
       return;
-    } 
+    }
     setErrors(false);
     // console.log("Enviando formulario");
     // Construimos un objeto para pasarlo al use state que esta en el archivo app " const [pacientes, setPacientes] = useState([])"
 
     const objetoPaciente = {
-      nombreMascota, 
-      nombrePropietario, 
-      email, 
-      fecha, 
-      sintomas
-    }
+      nombreMascota,
+      nombrePropietario,
+      email,
+      fecha,
+      sintomas,
+      id: generarId(),
+    };
 
-    // console.log(objetoPaciente); aca deben pasar todos los pacientes 
+    // console.log(objetoPaciente); aca deben pasar todos los pacientes
 
-    setPacientes([...pacientes, objetoPaciente])
+    setPacientes([...pacientes, objetoPaciente]);
 
     //Con esto reinicio el formulario
 
-    setNombreMascota('');
-    setnombrePropietario('');
-    setEmail('');
-    setFecha('');
-    setSintomas('');
-    
+    setNombreMascota("");
+    setnombrePropietario("");
+    setEmail("");
+    setFecha("");
+    setSintomas("");
   };
 
   return (
@@ -81,7 +89,12 @@ const Formulario = ({ pacientes, setPacientes }) => {
         onSubmit={handleSubmit}
       >
         <div>
-          {errors && <Error mensaje='todos los campos son obligatorios'/>}
+          {errors && (
+            <Error>
+              {/*  de esta manera puedo pasar props tambien, se utiliza cuando vamos a enviar bastante HTML */}
+              <p>todos los campos son obligatorios</p>
+            </Error>
+          )}
           <label
             className="block text-gray-700 uppercase font-bold"
             htmlFor="mascota"
