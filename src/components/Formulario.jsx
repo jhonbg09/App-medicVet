@@ -14,8 +14,16 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
   //La finalidad de useEffect es escuchar los cambios que esten sucediendo en el state
   //tambien 
   useEffect(()=>{
-    console.log(pacientes)
-  },[pacientes]) //Solo va acamobiar cuando pacientes alla cambiado...
+    if(Object.keys(pacienteEd).length > 0){ //Con Object.keys(pacienteEd).length comprovamos si hay algo en el arreglo 
+      setNombreMascota(pacienteEd.nombreMascota)
+      setnombrePropietario(pacienteEd.nombrePropietario)
+      setEmail(pacienteEd.email)
+      setFecha(pacienteEd.fecha)
+      setSintomas(pacienteEd.sintomas)
+    }else {
+      console.log("No hay nada")
+    }
+  },[pacienteEd]) //Solo va a cambiar cuando pacientes alla cambiado...
 
 
   //Estoy usando este handle para capturar la informacion del input
