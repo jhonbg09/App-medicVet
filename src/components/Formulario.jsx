@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import Error from "../components/Error";
 
-const Formulario = ({ pacientes, setPacientes }) => {
+const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
+  
   const [nombreMascota, setNombreMascota] = useState("");
   const [nombrePropietario, setnombrePropietario] = useState("");
   const [email, setEmail] = useState("");
@@ -10,6 +11,12 @@ const Formulario = ({ pacientes, setPacientes }) => {
   const [sintomas, setSintomas] = useState("");
 
   const [errors, setErrors] = useState(false);
+  //La finalidad de useEffect es escuchar los cambios que esten sucediendo en el state
+  //tambien 
+  useEffect(()=>{
+    console.log(pacientes)
+  },[pacientes]) //Solo va acamobiar cuando pacientes alla cambiado...
+
 
   //Estoy usando este handle para capturar la informacion del input
   const handleNombreMascota = (e) => setNombreMascota(e.target.value);

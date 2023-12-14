@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import Pacientes from "./Pacientes";
 const ListadoPacientes = ({ paciente, setPacienteEd }) => {
+  
   return (
     <div className="md:w-1/2 lg:-3/5 md:h-screen overflow-y-scroll">
       {/* cons esta line de codigo voy a colocar el renderizado condicional */}
