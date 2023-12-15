@@ -12,7 +12,7 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
 
   const [errors, setErrors] = useState(false);
   //La finalidad de useEffect es escuchar los cambios que esten sucediendo en el state
-  //tambien 
+  
   useEffect(()=>{
     if(Object.keys(pacienteEd).length > 0){ //Con Object.keys(pacienteEd).length comprovamos si hay algo en el arreglo 
       setNombreMascota(pacienteEd.nombreMascota)
@@ -200,7 +200,7 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
         <input
           type="submit"
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-          value="Agregar Paciente"
+          value={pacienteEd.id ? 'Editar Paciente' : 'Agregar Paciente'}
         />
       </form>
     </div>
