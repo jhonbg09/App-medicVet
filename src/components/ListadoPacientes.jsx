@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import Pacientes from "./Pacientes";
-const ListadoPacientes = ({ paciente, setPacienteEd }) => {
+const ListadoPacientes = ({ paciente, setPacienteEd, eliminarPaciente }) => {
   
   return (
     <div className="md:w-1/2 lg:-3/5 md:h-screen overflow-y-scroll">
@@ -14,7 +14,12 @@ const ListadoPacientes = ({ paciente, setPacienteEd }) => {
             <span className="text-indigo-600 font-bold">Pacientes y Citas</span>
           </p>
           {paciente.map((paciente) => (
-            <Pacientes key={paciente.id} paciente={paciente} setPacienteEd={setPacienteEd} />
+            <Pacientes 
+            key={paciente.id} 
+            paciente={paciente} 
+            setPacienteEd={setPacienteEd}
+            eliminarPaciente={eliminarPaciente}
+            />
           ))}
         </>
       ) : (

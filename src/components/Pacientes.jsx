@@ -1,9 +1,15 @@
 
 /* eslint-disable react/prop-types */
-const Pacientes = ({ paciente, setPacienteEd }) => {
+const Pacientes = ({ paciente, setPacienteEd, eliminarPaciente }) => {
   // console.log(paciente)
   //otro uso de use state es que cargue el componente cuando este listo
-
+  const handleEliminar = () => {
+    //El confirm() es de JavaScript
+    const respuesta = confirm("Deseas eliminar este paciente") //Este confim() hace que en el navegador nos muestre en el navegador un confirmador para eliminar el paciente 
+    if(respuesta){
+      eliminarPaciente(paciente.id)
+    }
+  };
 
   return (
     <div className="mx-5 my-10 bg-white shadow-md px-5 py-10 rounded-xl">
@@ -41,6 +47,7 @@ const Pacientes = ({ paciente, setPacienteEd }) => {
         <button
           type="button"
           className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg"
+          onClick={handleEliminar}
         >
           Eliminar
         </button>

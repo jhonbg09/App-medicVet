@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import Error from "../components/Error";
 
-const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
-  
+const Formulario = ({ pacientes, setPacientes, pacienteEd, setPacienteEd }) => {
   const [nombreMascota, setNombreMascota] = useState("");
   const [nombrePropietario, setnombrePropietario] = useState("");
   const [email, setEmail] = useState("");
@@ -12,19 +11,19 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
 
   const [errors, setErrors] = useState(false);
   //La finalidad de useEffect es escuchar los cambios que esten sucediendo en el state
-  
-  useEffect(()=>{
-    if(Object.keys(pacienteEd).length > 0){ //Con Object.keys(pacienteEd).length comprovamos si hay algo en el arreglo 
-      setNombreMascota(pacienteEd.nombreMascota)
-      setnombrePropietario(pacienteEd.nombrePropietario)
-      setEmail(pacienteEd.email)
-      setFecha(pacienteEd.fecha)
-      setSintomas(pacienteEd.sintomas)
-    }else {
-      console.log("No hay nada")
-    }
-  },[pacienteEd]) //Solo va a cambiar cuando pacientes alla cambiado...
 
+  useEffect(() => {
+    if (Object.keys(pacienteEd).length > 0) {
+      //Con Object.keys(pacienteEd).length comprobamos si hay algo en el arreglo
+      setNombreMascota(pacienteEd.nombreMascota);
+      setnombrePropietario(pacienteEd.nombrePropietario);
+      setEmail(pacienteEd.email);
+      setFecha(pacienteEd.fecha);
+      setSintomas(pacienteEd.sintomas);
+    } else {
+      console.log("No hay nada");
+    }
+  }, [pacienteEd]); //Solo va a cambiar cuando pacientes alla cambiado...
 
   //Estoy usando este handle para capturar la informacion del input
   const handleNombreMascota = (e) => setNombreMascota(e.target.value);
@@ -45,13 +44,12 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
   };
   // console.log(sintomas);
 
-   //Con esta funcion voy a crear el key para eliminar el error de la consola
-   const generarId = () => {
+  //Con esta funcion voy a crear el key para eliminar el error de la consola
+  const generarId = () => {
     const random = Math.random().toString(36);
     const fecha = Date.now().toString(36);
     return fecha + random;
   };
-  
 
   //Este handle hace la validacion del formulario
   const handleSubmit = (e) => {
@@ -75,12 +73,21 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
       email,
       fecha,
       sintomas,
-      id: generarId(),
+      
     };
 
-    // console.log(objetoPaciente); aca deben pasar todos los pacientes
-
-    setPacientes([...pacientes, objetoPaciente]);
+    if (pacienteEd.id) {
+      //Editando el registro
+      objetoPaciente.id = pacienteEd.id;
+      const pacientesAtualizados = pacientes.map(pacienteState => pacienteState.id === pacienteEd.id ? objetoPaciente :  pacienteState)
+      setPacientes(pacientesAtualizados)
+      setPacienteEd({})
+    } else {
+      //Nuevo Registro
+      // console.log(objetoPaciente); aca deben pasar todos los pacientes
+      objetoPaciente.id = generarId()
+      setPacientes([...pacientes, objetoPaciente]);
+    }
 
     //Con esto reinicio el formulario
 
@@ -200,7 +207,7 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd }) => {
         <input
           type="submit"
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-          value={pacienteEd.id ? 'Editar Paciente' : 'Agregar Paciente'}
+          value={pacienteEd.id ? "Editar Paciente" : "Agregar Paciente"}
         />
       </form>
     </div>
