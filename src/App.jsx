@@ -12,6 +12,14 @@ function App() {
   // simepre hay que convertirlo a un string
 
   useEffect(()=>{
+    const obtenerLS = () =>{
+      const pacientesLS = JSON.parse(localStorage.getItem('pacientes'))??[];
+      setPacientes(pacientesLS)
+    }
+    obtenerLS()
+  },[])
+
+  useEffect(()=>{
     localStorage.setItem('pacientes', JSON.stringify(pacientes)) //convierte el arreglo en un string
   },[pacientes])
 

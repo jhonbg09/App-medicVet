@@ -21,7 +21,7 @@ const Formulario = ({ pacientes, setPacientes, pacienteEd, setPacienteEd }) => {
       setFecha(pacienteEd.fecha);
       setSintomas(pacienteEd.sintomas);
     } else {
-      console.log("No hay nada");
+      // console.log("No hay nada");
     }
   }, [pacienteEd]); //Solo va a cambiar cuando pacientes alla cambiado...
 
